@@ -4,22 +4,31 @@ import { BLUR_FILTER, GREYSCALE_FILTER, NEGATIVE_FILTER } from "../../commons/co
 import Process from "../../models/Process.mjs";
 
 const PayloadValidation = Joi.object({
-    filters: Joi.array().min(1).items(Joi.string().valid(
-        NEGATIVE_FILTER, GREYSCALE_FILTER, BLUR_FILTER
-    )),
+    filters: Joi.array().items(Joi.string().valid("negative", "greyscale", "blur")).min(1)
 });
 
-const applyFilters = async(payload) => {
+
+
+const applyFilters = async (files, filters) => {
     try {
-        await PayloadValidation.validateAsync(payload);
+        await PayloadValidation.validateAsync(filters, files);
     } catch (error) {
         throw Boom.badData(error.message, { error });
     }
-    const newProcess = new Process();
-    newProcess.filters = payload.filters;
+
+ 
+    const filesData = [];
+
+    for (const file of files) {
+        const fileData = file.buffer;
+        filesData.push(fileData);
+    }
+    const newProcess = new Process;
+    newProcess.files = filesData;
+    newProcess.filters = filters;
     await newProcess.save();
     return newProcess;
-}
+};
 
 
 
