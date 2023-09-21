@@ -24,10 +24,10 @@ module.exports = {
   rules: {
     'import/extensions': [
       'error',
-      ignorePackages,
+      'ignorePackages',
       {
         js: 'never',
-        mjs: 'never',
+        mjs: 'always',
       },
     ],
   },
