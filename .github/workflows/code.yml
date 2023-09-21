@@ -14,4 +14,15 @@ jobs:
         
       - name: Review files
         run: ls
+      - name: Setup Node Js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+    
+      - name: Cjeck code
+        run: npm run lint
+        continue-on-error: true
 
