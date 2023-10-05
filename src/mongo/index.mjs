@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import { MONGO_URI } from '../commons/env.mjs';
 
+// eslint-disable-next-line import/prefer-default-export
 export const startConnection = async () => {
-const url = encodeURI("mongodb+srv://mateohanaoka:mateohanaoka@cluster0.a5fxkgt.mongodb.net/?retryWrites=true&w=majority");
-await mongoose.connect(url);
+  const url = encodeURI(MONGO_URI);
+  await mongoose.connect(url);
 };
